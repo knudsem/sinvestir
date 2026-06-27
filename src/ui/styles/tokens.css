@@ -1,0 +1,93 @@
+/* Système de design centralisé, calé sur l'identité visuelle de
+   simulateurs.sinvestir.fr (couleurs relevees directement sur leur interface).
+   Pour ajuster, il suffit de modifier les variables de ce fichier. */
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700&display=swap");
+
+:root {
+  /* Fond et surfaces (navy quasi noir relevé sur leur interface) */
+  --bg: #020513;
+  --surface: #0d111c;
+  --surface-2: #131a28;
+  --surface-3: #1b2434;
+  --border: #1a2233;
+  --border-strong: #2a3346;
+
+  /* Texte */
+  --text: #f3f6fb;
+  --text-muted: #8d98a9;
+  --text-faint: #5c6678;
+
+  /* Accent principal : bleu S'investir (sous-titre, barre, éléments actifs) */
+  --accent: #1098f8;
+  --accent-2: #0c7fd6;
+  --accent-soft: rgba(16, 152, 248, 0.14);
+  --accent-glow: rgba(16, 152, 248, 0.38);
+
+  /* Accent secondaire : or S'investir (gains, mises en avant) */
+  --gold: #f8d046;
+  --gold-2: #efc42e;
+  --gold-soft: rgba(248, 208, 70, 0.14);
+
+  /* Sémantique gain / perte. L'or marque le gain, comme sur leur simulateur. */
+  --positive: #f8d046;
+  --negative: #ff6b7a;
+  --invested: #6b7891;
+
+  /* Typographie : Plus Jakarta Sans pour le texte, Lexend pour les boutons */
+  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-button: "Lexend", system-ui, -apple-system, sans-serif;
+
+  /* Rayons */
+  --r-sm: 8px;
+  --r: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+
+  /* Ombres */
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: clip;
+  /* Fond sombre + halo bleu en bas à gauche façon neon, repris de leur page. */
+  background:
+    radial-gradient(52% 46% at 7% 96%, rgba(20, 104, 226, 0.22) 0%, rgba(20, 104, 226, 0) 68%),
+    radial-gradient(46% 38% at 88% 2%, rgba(16, 152, 248, 0.08) 0%, rgba(16, 152, 248, 0) 60%),
+    linear-gradient(162deg, #050a1b 0%, #02040f 56%, #000000 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

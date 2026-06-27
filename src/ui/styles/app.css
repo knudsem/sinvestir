@@ -1,0 +1,593 @@
+/* Mise en page et composants de l'application. Sélecteurs volontairement simples
+   et à plat pour éviter les conflits de spécificité. */
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* En-tete */
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 18px;
+  margin-bottom: 26px;
+  border-bottom: 1px solid var(--border);
+}
+.brand-logo {
+  height: 30px;
+  width: auto;
+  display: block;
+}
+.discover-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-family: var(--font-button);
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.22s ease;
+}
+.discover-link:hover {
+  color: var(--text);
+}
+.headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.55rem, 3.4vw, 2.4rem);
+  line-height: 1.12;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+  margin: 6px 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+.headline::before,
+.headline::after {
+  content: "";
+  flex: 0 0 64px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent));
+}
+.headline::after {
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+.tagline {
+  text-align: center;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  margin: 0 auto 8px;
+  max-width: 64ch;
+}
+.subhead {
+  text-align: center;
+  color: var(--text-muted);
+  max-width: 62ch;
+  margin: 0 auto 34px;
+  font-size: 0.98rem;
+}
+
+/* Grille principale */
+.layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+}
+.card-pad {
+  padding: 20px;
+}
+.controls-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 4px 8px;
+}
+
+/* Contrôles */
+.field {
+  margin-bottom: 24px;
+}
+.field:last-child {
+  margin-bottom: 0;
+}
+.label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.input,
+.select {
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-strong);
+  color: var(--text);
+  border-radius: 0;
+  padding: 8px 2px;
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color-scheme: dark;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.select {
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+/* La liste déroulante native suit le thème sombre, sinon le texte clair s'affiche
+   sur le fond blanc par défaut du navigateur et devient illisible. color-scheme
+   cale aussi le calendrier des champs date et les flèches des champs nombre. */
+.select option {
+  background-color: var(--surface-2);
+  color: var(--text);
+}
+.input:hover,
+.select:hover {
+  border-bottom-color: var(--text-muted);
+}
+.input:focus,
+.select:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+  box-shadow: 0 1px 0 0 var(--accent);
+}
+.input:focus-visible,
+.select:focus-visible {
+  outline: none;
+}
+.input-prefix {
+  position: relative;
+}
+.input-prefix .input {
+  padding-left: 20px;
+}
+.input-prefix .sign {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  pointer-events: none;
+}
+
+/* Contrôle segmenté (fréquence) */
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 4px;
+}
+.segmented button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-button);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 4px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.segmented button:hover {
+  color: var(--text);
+}
+.segmented button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* Presets de plage */
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  appearance: none;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-family: var(--font-button);
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 7px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, color 0.22s ease, transform 0.22s ease;
+}
+.chip:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #03233c;
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.date-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 12px;
+}
+.date-row .input {
+  font-size: 0.95rem;
+  font-weight: 400;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+/* Bandeau résultat principal */
+.verdict {
+  padding: 22px;
+  border-bottom: 1px solid var(--border);
+}
+.verdict-line {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+.verdict-line strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.verdict-final {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4.5vw, 2.7rem);
+  letter-spacing: -0.02em;
+  margin-top: 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.delta {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.delta.up {
+  color: var(--gold);
+  background: var(--gold-soft);
+}
+.delta.down {
+  color: var(--negative);
+  background: rgba(255, 107, 122, 0.12);
+}
+
+.clamp-note {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  line-height: 1.4;
+}
+
+/* Grille de métriques */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+@media (max-width: 560px) {
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .headline {
+    gap: 0;
+  }
+  .headline::before,
+  .headline::after {
+    display: none;
+  }
+}
+.metric {
+  background: var(--surface);
+  padding: 16px 18px;
+}
+.metric-label {
+  font-size: 0.74rem;
+  color: var(--text-faint);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.metric-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+.metric-value.pos {
+  color: var(--positive);
+}
+.metric-value.neg {
+  color: var(--negative);
+}
+
+/* Graphique */
+.chart-wrap {
+  padding: 18px 18px 10px;
+}
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.legend {
+  display: flex;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.swatch {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.swatch.value {
+  background: var(--accent);
+}
+.swatch.invested {
+  background: var(--invested);
+}
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: crosshair;
+}
+.tip-label {
+  font-size: 0.78rem;
+  fill: var(--text-faint);
+}
+.tip-date {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--text);
+}
+.tip-value {
+  font-size: 11px;
+  fill: var(--accent);
+}
+.tip-invested {
+  font-size: 11px;
+  fill: var(--text-muted);
+}
+
+/* Comparaison DCA vs unique */
+.compare {
+  padding: 18px 20px 22px;
+  border-top: 1px solid var(--border);
+}
+.compare-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  margin: 0 0 14px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent);
+}
+.bar-row {
+  display: grid;
+  grid-template-columns: 92px 1fr 120px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.bar-name {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.bar-track {
+  height: 26px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+.bar-fill.win {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+}
+.bar-fill.lose {
+  background: var(--surface-3);
+  border: 1px solid var(--border-strong);
+}
+.bar-val {
+  text-align: right;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+.compare-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+  line-height: 1.45;
+}
+.compare-note strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* États vides / hint */
+.hint {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 14px;
+}
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.ghost-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.ghost-btn {
+  appearance: none;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-button);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, color 0.22s ease, transform 0.22s ease;
+}
+.ghost-btn:hover {
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-soft), 0 8px 26px var(--accent-glow);
+  transform: translateY(-1px);
+}
+.ghost-btn:active {
+  transform: translateY(0);
+}
+
+.footnote {
+  margin-top: 28px;
+  color: var(--text-faint);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+/* Section de comparaison multi-cryptos */
+.compare-section {
+  margin-top: 20px;
+}
+.cmp-sub {
+  margin: 0 0 14px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.cmp-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.cmp-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+.cmp-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+.cmp-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 600;
+  color: var(--text);
+}
+.cmp-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.cmp-val {
+  font-weight: 700;
+}
+.cmp-pct {
+  font-weight: 700;
+  min-width: 84px;
+  text-align: right;
+}
+.cmp-pct.pos {
+  color: var(--positive);
+}
+.cmp-pct.neg {
+  color: var(--negative);
+}
+
+/* Petit mobile : on resserre les marges et on empile ce qui ne tient plus sur
+   une seule rangee (fréquence en 2x2, dates l'une sous l'autre, boutons pleine
+   largeur). Au-dessus de cette largeur, les regles de base reprennent la main. */
+@media (max-width: 480px) {
+  .page {
+    padding: 24px 16px 56px;
+  }
+  .segmented {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .date-row {
+    grid-template-columns: 1fr;
+  }
+  .bar-row {
+    grid-template-columns: 64px 1fr 84px;
+    gap: 10px;
+  }
+  .cmp-pct {
+    min-width: 64px;
+  }
+  .toolbar {
+    justify-content: stretch;
+  }
+  .toolbar .ghost-btn {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+}

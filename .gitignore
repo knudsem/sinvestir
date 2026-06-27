@@ -1,0 +1,25 @@
+# Dependances
+node_modules/
+
+# Sortie de build
+dist/
+
+# Couverture de tests
+coverage/
+
+# Vercel
+.vercel/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editeur et OS
+.DS_Store
+.idea/
+.vscode/
+*.local
+
+# Variables d'environnement
+.env
+.env.*
