@@ -4,8 +4,7 @@ Simulateur d'investissement en cryptomonnaies : on choisit une crypto, un montan
 
 Réalisé dans le cadre du test technique S'investir.
 
-- Démo en ligne : _à compléter après le déploiement Vercel_
-- Code source : _lien du dépôt public_
+- Démo en ligne : https://sinvestir-three.vercel.app
 
 ---
 
