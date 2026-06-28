@@ -87,20 +87,16 @@ export async function buildSimulationPdf(
   doc.setFontSize(9);
   doc.setTextColor(...FAINT);
   doc.text(today, W - M, y, { align: "right" });
-  y += 30;
+  y += 24;
 
-  // Titre du rapport
-  doc.setFont(XBOLD, "normal");
-  doc.setFontSize(20);
-  doc.setTextColor(...INK);
-  doc.setCharSpace(0.5);
-  doc.text("SIMULATEUR CRYPTO", M, y);
-  doc.setCharSpace(0);
-  y += 11;
+  // Filet de separation sous l'en-tete : court accent bleu puis trait fin
   doc.setDrawColor(...ACCENT);
   doc.setLineWidth(2.6);
   doc.line(M, y, M + 44, y);
-  y += 24;
+  doc.setDrawColor(...BORDER);
+  doc.setLineWidth(1);
+  doc.line(M + 50, y, W - M, y);
+  y += 22;
 
   // Scenario
   doc.setFont(REG, "normal");
