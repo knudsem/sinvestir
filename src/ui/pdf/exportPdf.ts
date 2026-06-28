@@ -8,13 +8,14 @@ import { formatMoney, formatPercent, formatPrice, formatDate, formatMonthYear } 
 
 const INFLATION_RATE = 0.02;
 
-// Palette du rapport : fond blanc, encre sombre, accent émeraude lisible à
-// l'impression. Couleurs en RGB.
+// Palette du rapport : fond blanc, encre sombre, bleu pour l'identité et le
+// graphique, or foncé pour les gains (lisibles sur blanc). Couleurs en RGB.
 const INK: [number, number, number] = [26, 34, 48];
 const MUTED: [number, number, number] = [108, 117, 130];
 const FAINT: [number, number, number] = [150, 159, 170];
-const ACCENT: [number, number, number] = [15, 170, 132];
-const ACCENT_SOFT: [number, number, number] = [228, 247, 240];
+const ACCENT: [number, number, number] = [16, 152, 248];
+const POS: [number, number, number] = [170, 124, 20];
+const POS_SOFT: [number, number, number] = [250, 243, 217];
 const NEG: [number, number, number] = [205, 70, 79];
 const NEG_SOFT: [number, number, number] = [251, 235, 236];
 const CARD: [number, number, number] = [246, 248, 250];
@@ -111,9 +112,9 @@ export async function buildSimulationPdf(
   const badgeW = doc.getTextWidth(pctStr) + padX * 2;
   const badgeX = M + valueW + 14;
   const badgeY = y - 16;
-  doc.setFillColor(...(gainPositive ? ACCENT_SOFT : NEG_SOFT));
+  doc.setFillColor(...(gainPositive ? POS_SOFT : NEG_SOFT));
   doc.roundedRect(badgeX, badgeY, badgeW, badgeH, 5, 5, "F");
-  doc.setTextColor(...(gainPositive ? ACCENT : NEG));
+  doc.setTextColor(...(gainPositive ? POS : NEG));
   doc.text(pctStr, badgeX + padX, badgeY + 14.5);
   y += 18;
 
@@ -134,11 +135,11 @@ export async function buildSimulationPdf(
   // Grille d'indicateurs (3 x 3 cartes)
   const cards: Array<{ label: string; value: string; color?: [number, number, number] }> = [
     { label: "TOTAL INVESTI", value: sp(formatMoney(result.totalInvested)) },
-    { label: "GAIN", value: sp(formatMoney(result.absoluteGain)), color: gainPositive ? ACCENT : NEG },
+    { label: "GAIN", value: sp(formatMoney(result.absoluteGain)), color: gainPositive ? POS : NEG },
     {
       label: "RENDEMENT / AN",
       value: sp(formatPercent(m.annualizedReturn)),
-      color: m.annualizedReturn >= 0 ? ACCENT : NEG,
+      color: m.annualizedReturn >= 0 ? POS : NEG,
     },
     { label: "PRIX D'ACHAT MOYEN", value: sp(formatPrice(m.averageBuyPrice)) },
     { label: "PIRE BAISSE", value: sp(formatPercent(-m.maxDrawdown, false)), color: NEG },
@@ -236,7 +237,7 @@ export async function buildSimulationPdf(
     }
     doc.setLineDashPattern([], 0);
 
-    // Ligne valeur (émeraude)
+    // Ligne valeur (bleu)
     doc.setDrawColor(...ACCENT);
     doc.setLineWidth(1.5);
     for (let i = 1; i < pts.length; i += 1) {
